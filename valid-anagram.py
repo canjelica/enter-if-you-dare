@@ -14,3 +14,15 @@ You may assume the string contains only lowercase alphabets.
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?"""
 
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        s = list(s)
+        t = list(t)
+        
+        s = sorted(s)
+        t = sorted(t)
+        
+        if s == t:
+            return True
+        else:
+            return False
