@@ -31,3 +31,26 @@ def is_balanced(sentence):
 		return True
 	# return len(parens_stack) == 0
 	#^^^ len returns a number, if not equal to 0 will be False
+
+
+	#----------NO STACK----------------#
+
+
+def f(ch, count):
+    if ch == '(':
+        return count + 1
+    elif ch == ')':
+        return count - 1
+    else:
+        return count
+
+def has_balanced_parens(phrase):
+    parens = 0
+
+    for char in phrase:
+        parens = f(char, parens)
+            
+        if parens < 0:
+            return False
+
+    return parens == 0
