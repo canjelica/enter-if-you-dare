@@ -3,7 +3,7 @@
 
 """Calculating whether a value is greater than the average value of consecutive subsets of data of certain window size."""
 
-find the average of subsets of window size, if value is greater return whatever
+"""find the average of subsets of window size, if value is greater return whatever
 
 Given an array and an integer K, find the maximum for each and every contiguous subarray of size k.
 Examples :
@@ -28,3 +28,37 @@ generated is 10 10 10 15 15 90 90
 
 
 https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/
+"""
+
+#loop over the array in chunks of 3
+#find max each time, add to new array
+#set i to 0, slice from i until end 
+#account for index error at end
+
+# def find_max_window(array, k):
+# 	output = []
+
+# 	i = 0
+
+# 	for i, window in array:
+
+
+def make_everything_a_list_of_one(lst):
+    """Divide lists until we reach lists of length 1."""
+
+    # if length of lst is 1, return lst
+    if len(lst) < 2:
+        print(lst)
+        return lst
+
+    # index at half the list
+    mid = int(len(lst) / 2)
+
+    # divide list in half
+    make_everything_a_list_of_one(lst[:mid])
+    # assign other half
+    make_everything_a_list_of_one(lst[mid:])
+
+
+lst2 = [2, 1, 7, 4]
+make_everything_a_list_of_one(lst2)      # => [2] [1] [7] [4]
