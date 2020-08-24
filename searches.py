@@ -84,3 +84,53 @@ def make_merge(lst1, lst2):
 
     print("returning merge", result_list)
     return result_list
+
+
+
+"""Binary Search"""
+
+def binary_search(sequence, item):
+    begin_index = 0
+    end_index = len(sequence) - 1
+
+    while begin_index <= end_index:
+        midpoint = begin_index + (end_index - begin_index) // 2
+        midpoint_value = sequence[midpoint]
+        if midpoint_value == item:
+            return midpoint
+
+        elif item < midpoint_value:
+            end_index = midpoint - 1
+
+        else:
+            begin_index = midpoint + 1
+
+    return None
+
+sequence_a = [2,4,5,6,7,8,9,10,12,13,14]
+item_a = 2
+
+
+print(binary_search(sequence_a, item_a))
+
+
+
+def make_everything_a_list_of_one(lst):
+    """Divide lists until we reach lists of length 1."""
+
+    # if length of lst is 1, return lst
+    if len(lst) < 2:
+        print(lst)
+        return lst
+
+    # index at half the list
+    mid = int(len(lst) / 2)
+
+    # divide list in half
+    make_everything_a_list_of_one(lst[:mid])
+    # assign other half
+    make_everything_a_list_of_one(lst[mid:])
+
+
+lst2 = [2, 1, 7, 4]
+make_everything_a_list_of_one(lst2)      # => [2] [1] [7] [4]

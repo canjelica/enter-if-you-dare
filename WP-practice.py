@@ -42,23 +42,15 @@ https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of
 
 # 	for i, window in array:
 
-
-def make_everything_a_list_of_one(lst):
-    """Divide lists until we reach lists of length 1."""
-
-    # if length of lst is 1, return lst
-    if len(lst) < 2:
-        print(lst)
-        return lst
-
-    # index at half the list
-    mid = int(len(lst) / 2)
-
-    # divide list in half
-    make_everything_a_list_of_one(lst[:mid])
-    # assign other half
-    make_everything_a_list_of_one(lst[mid:])
-
-
-lst2 = [2, 1, 7, 4]
-make_everything_a_list_of_one(lst2)      # => [2] [1] [7] [4]
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxsofar = nums[0]
+        sumsofar = nums[0]
+        for i in range(1, len(nums)):
+            if sumsofar <= 0:
+                sumsofar = nums[i]
+            else:
+                sumsofar =  sumsofar + nums[i]
+                maxsofar = max(sumsofar, maxsofar)
+        return maxsofar
+        

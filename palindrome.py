@@ -22,3 +22,22 @@ def is_palindrome(word):
   """Return True/False if this word is a palindrome."""
 
 	# reverse word, if word== word, true
+
+
+"""Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+Example 1:
+
+Input: 121
+Output: true"""
+
+def isPalindrome(self, x: int) -> bool:
+	#turn it into string, list the string, reverse it, see if equal
+	str_int = list(str(x))
+	print(str_int)
+	str_int.reverse()
+	print(str_int)
+	
+	if str_int == list(str(x)):
+		return True
+	
