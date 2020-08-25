@@ -42,6 +42,29 @@ https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of
 
 # 	for i, window in array:
 
+
+
+# Python program to find the maximum for  
+# each and every contiguous subarray of 
+# size k 
+  
+# Method to find the maximum for each 
+# and every contiguous subarray of s  
+# of size k 
+def printMax(arr, n, k): 
+    max = 0
+    
+    for i in range(n - k + 1): 
+        max = arr[i] 
+        for j in range(1, k): 
+            if arr[i + j] > max: 
+                max = arr[i + j] 
+        print(str(max) + " ", end = "") 
+
+
+
+		
+
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         maxsofar = nums[0]
