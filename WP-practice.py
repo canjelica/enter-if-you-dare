@@ -63,7 +63,7 @@ def printMax(arr, n, k):
 
 
 
-		
+
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
@@ -76,4 +76,44 @@ class Solution:
                 sumsofar =  sumsofar + nums[i]
                 maxsofar = max(sumsofar, maxsofar)
         return maxsofar
-        
+
+
+class Sample:
+	def __init__(self):
+		self.a = 1;
+		self.b = 1;
+	
+	def function_one(self,a):
+		self.b = self.b + a
+	
+	def function_two(self, b):
+		for i in range (self.b):
+			self.a += b
+
+
+
+def func(a):
+	if a <= 0:
+		return 1
+	if a % 2 == 0:
+		return a;
+	else:
+		return func(a-1) + func(a-2)
+
+
+def hi(lst):                     
+
+	a=0                                                  
+
+	idx=0                                                
+
+	while a<10: 
+		if lst[idx] %2 == 0:
+			a+= lst[idx]
+			idx +=1
+	print(str(a) + "," + str(idx))
+
+
+heap sort
+bogo sort
+insertion
