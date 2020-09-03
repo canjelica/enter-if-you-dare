@@ -20,11 +20,34 @@ class MaintenanceEvent(object):
         self.timestamp = timestamp
 
 def IsProcessedCorrectly(events):
-    #events[0].state
-    #events[0].car_id
-    #events[0].work_type
-    # TODO: implement properly!
-    return True
+	"""Returns True is events have been processed correctly."""
+    tracker = {}
+
+	for event in events:
+		if event.car_id in tracker:
+			open_events = tracker[event.car_id] 
+			removed_event = False
+
+			for open_event in open_events:
+				if event.work_type == open_event.work_type and event.state != open_event.state:
+					if open_event.timestamp < event.timestamp:
+						open_events.remove(open_event)
+						removed_event = True
+						
+			if not removed_event:
+				if event.state == 1:
+					tracker[event.car_id].append(event)
+				else:
+					return False
+
+	for key in tracker:
+		if key.values == []:
+			return True
+		else: 
+			return False
+	
+	else:
+		tracker[event.car_id] = [event]
 
 
 assert(IsProcessedCorrectly(
@@ -36,36 +59,9 @@ assert(IsProcessedCorrectly(
      MaintenanceEvent(0, 600, "tires",1200)]))
 
 
-#
-#I: array of 4 values 
-#loop over each item in events
-
 #{809: [MaintenanceEvent(1, 809, "oil",  1000), MaintenanceEvent(1, 809, "filter", 1015), MaintenanceEvent(0, 809, "oil",  1030), MaintenanceEvent(0, 809, "filter", 1045)]
 
-#tracker = {}
 
-#for event in events:
-    # if event.car_id in tracker:
-    #     open_events = tracker[event.car_id] #list of maintenanceevs
-    #     removed_event = False
-    #     for open_event in open_events:
-                
-    #         if event.work_type == open_event.work_type and                            event.state != open_event.state:
-    #            if open_event.timestamp < event.timestamp:
-   #                 open_events.remove(open_event)
-   #                 removed_event = True
-   #      if not removed_event:
-   #          if event.state == 1:
-   #                 tracker[event.car_id].append(event)
-#              else:
-                # return False
-#check if the dictionary has all empty values, if yes, True, if no, False
-            
-            
-
-                 
-    # else:
-        # tracker[event.car_id] = [event]
     
         
 
