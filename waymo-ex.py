@@ -20,9 +20,10 @@ class MaintenanceEvent(object):
         self.timestamp = timestamp
 
 def IsProcessedCorrectly(events):
-	"""Returns True is events have been processed correctly."""
-    tracker = {}
-
+	"""Returns True if events have been processed correctly."""
+	
+	tracker = {}
+	
 	for event in events:
 		if event.car_id in tracker:
 			open_events = tracker[event.car_id] 
@@ -33,7 +34,7 @@ def IsProcessedCorrectly(events):
 					if open_event.timestamp < event.timestamp:
 						open_events.remove(open_event)
 						removed_event = True
-						
+
 			if not removed_event:
 				if event.state == 1:
 					tracker[event.car_id].append(event)
@@ -52,34 +53,11 @@ def IsProcessedCorrectly(events):
 
 assert(IsProcessedCorrectly(
     [MaintenanceEvent(1, 809, "oil",  1000),
-     MaintenanceEvent(1, 600, "tires",1000),
+     MaintenanceEvent(1, 600, "tires", 1000),
      MaintenanceEvent(1, 809, "filter", 1015),
-     MaintenanceEvent(0, 809, "oil",  1030),
+     MaintenanceEvent(0, 809, "oil", 1030),
      MaintenanceEvent(0, 809, "filter", 1045),
      MaintenanceEvent(0, 600, "tires",1200)]))
-
-
-#{809: [MaintenanceEvent(1, 809, "oil",  1000), MaintenanceEvent(1, 809, "filter", 1015), MaintenanceEvent(0, 809, "oil",  1030), MaintenanceEvent(0, 809, "filter", 1045)]
-
-
-    
-        
-
-#checking if event.car_id is a key in tracker, save event at event.car_id
-
-#check if work type is already in key, check that state is different, if state is 1, save timestamp_opn, state is 0, save timestamp_cls, if timestamp_opn < timestamp_cls, remove events
-#check dictionary for values at each existing key, as long as they're all empty, return true, return false
-
-# for each event
-#   # see if we have events for the car
-    # if yes
-       # for each open event
-          # do more stuff
-
-
-
-
-
 
 assert(not IsProcessedCorrectly(
     [MaintenanceEvent(1, 81, "brakes",1000), # not closed
@@ -99,3 +77,26 @@ assert(not IsProcessedCorrectly(
 #                               {1, 8099, "wash", 840}, # duplicate
 #                               {0, 6780, "fuel", 845},
 #                               {0, 8099, "wash", 1100}}));
+
+
+#----------------------------PSEUDOCODE--------------------------
+
+
+
+#{809: [MaintenanceEvent(1, 809, "oil",  1000), MaintenanceEvent(1, 809, "filter", 1015), MaintenanceEvent(0, 809, "oil",  1030), MaintenanceEvent(0, 809, "filter", 1045)]
+
+#checking if event.car_id is a key in tracker, save event at event.car_id
+
+#check if work type is already in key, check that state is different, if state is 1, save timestamp_opn, state is 0, save timestamp_cls, if timestamp_opn < timestamp_cls, remove events
+#check dictionary for values at each existing key, as long as they're all empty, return true, return false
+
+# for each event
+#   # see if we have events for the car
+    # if yes
+       # for each open event
+          # do more stuff
+
+
+
+
+
