@@ -40,15 +40,15 @@ def IsProcessedCorrectly(events):
 					tracker[event.car_id].append(event)
 				else:
 					return False
+		else:
+			tracker[event.car_id] = [event]
 
-	for key in tracker:
-		if key.values == []:
+	if tracker.values == []:
 			return True
-		else: 
-			return False
+	else: 
+		return False
 	
-	else:
-		tracker[event.car_id] = [event]
+	
 
 
 assert(IsProcessedCorrectly(
