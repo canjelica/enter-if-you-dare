@@ -1,0 +1,117 @@
+You are given a txt file with the following:
+- two numbers representing the area of a museum floor
+- the coordinates of 
+
+
+4 6
+0 0 g
+0 1 w
+1 1 g
+2 2 w
+2 3 g
+
+given position of guards and walls
+
+museum is m x n rectangle, n always greater than 0
+
+guards cover n s e w of them unobstructed, if wall, do
+
+def create_museum(m, n):
+	"""creates a two-dimensional array based on the number of rows (m) and number of items in each row(n)"""
+	museum = []
+	for row in range(m):
+		row = []
+		for item in range(n):
+			row.append("0")
+		museum.append(row)
+​
+	return museum
+​
+​
+def check_for_unguarded_rooms(museum):
+	"""loops over a two-dimensional array and determines if there are any unwatched rooms and returns boolean and unwatched room coordinates"""
+	empty_rooms = []
+​
+	for row_idx in range(len(museum)):	
+		
+		for item_idx, item_value in enumerate(museum[row_idx]):
+			if item_value == "0":
+				empty_rooms.append([row_idx, item_idx])
+​
+​
+	if not empty_rooms: 
+		print("true")
+	
+	else:
+		print("false")
+​
+		for room in empty_rooms:
+			print(str(room[0]) + " " + str(room[1]))
+​
+​
+def check_museum_security(size, *args):
+	"""Takes in a list of two items to create two dimensional array and lists of 3 items to place guards and walls
+	   Calls check_for_unguarded rooms and returns values true/false and coordinates for unguarded rooms
+	"""
+​
+	museum = create_museum(size[0], size[1]) #assumes size is a list of 2 elements
+	guards = []
+​
+	#fill the museum w. guards and walls at their appropriate locations and create separate list to hold distinct g's
+	for arg in args:
+		row, item, designation = arg
+		museum[row][item] = designation
+​
+		if designation == "g":
+			guards.append(arg)
+	
+​
+	for guard in guards:
+		guard_row_idx = guard[0]
+		guard_item_idx = guard[1]
+​
+​
+		#check to right
+		for curr_item_idx in range(guard_item_idx + 1, len(museum[guard_row_idx]),1):
+			if museum[guard_row_idx][curr_item_idx] == "g" or museum[guard_row_idx][curr_item_idx] == "w":
+				break
+​
+			else:
+				museum[guard_row_idx][curr_item_idx] = "-"
+​
+​
+		#check left
+		for curr_item_idx in range(guard_item_idx-1,-1,-1):
+			if museum[guard_row_idx][curr_item_idx] == "g" or museum[guard_row_idx][curr_item_idx] == "w":
+				break
+​
+			else:
+				museum[guard_row_idx][curr_item_idx] = "-"
+​
+​
+		#check down
+		for curr_row_idx in range(guard_row_idx + 1, len(museum), 1):
+		
+			if museum[curr_row_idx][guard_item_idx] == "g" or museum[curr_row_idx][guard_item_idx] == "w":
+				break
+​
+			else:
+				museum[curr_row_idx][guard_item_idx] = "-"
+​
+		#check up
+		for curr_row_idx in range(guard_row_idx - 1, -1, -1):
+		
+			if museum[curr_row_idx][guard_item_idx] == "g" or museum[curr_row_idx][guard_item_idx] == "w":
+				break
+​
+			else:
+				museum[curr_row_idx][guard_item_idx] = "-"
+​
+			
+	check_for_unguarded_rooms(museum)
+  
+check_museum_security([4, 6],[0, 0, 'g'], [0, 1, 'w'], [1, 1, 'g'], [2, 2, 'w'], [2, 3, 'g'])
+check_museum_security([2, 2],[0, 0, 'g'], [1, 1, 'g'])
+​
+​
+​
