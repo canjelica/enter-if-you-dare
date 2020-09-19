@@ -1,0 +1,19 @@
+self.master_list = {
+	'Entrance': {'name':'Entrance', 'exits': {'North': 'Hall','East':'Dining','West':'Sitting'}},
+	
+	'Hall': {'name': 'Hall', 'exits': {'South:'Entrance','East':'Kitchen','West':'Bedroom'}},
+	
+	'Dining': {'name':'Dining', 'exits': {'North':'Kitchen','West':'Entrance'}}, 
+	
+	'Sitting': {'name': 'Sitting', 'exits': {'North':'Bedroom','East':'Entrance'}}, 
+
+	'Kitchen': {'name': 'Kitchen', 'exits': { 'West':'Hall', 'South':'Dining'}},
+
+	'Bedroom': {'name': 'Bedroom', 'exits': {'East':'Hall','South':'Sitting'}}, 'start': 'Entrance', 'end': 'Kitchen'}
+
+current = 'Entrance'
+runners =  [['West', 'North', 'East', 'East']] object
+
+result = ['West', 'North', 'East', 'East']
+
+current = current.get_square[West] = Sitting #if it's not there, this function returns None
