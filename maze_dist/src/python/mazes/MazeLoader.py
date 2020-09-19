@@ -54,6 +54,16 @@ class MazeLoader:
         except IOError:
             print('IO Exception reading from maze file')
                 
+
+
+# #
+# cell_nums = 6
+# name = Entrance
+# self.master_list = {
+# 	Entrance: {}
+# }
+
+
 class MazeSquare:
     """Implements a room in a maze."""
     def __init__(self, name):
