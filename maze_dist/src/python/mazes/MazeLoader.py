@@ -3,15 +3,13 @@ import sys
 # Mock submission that will return valid path
 class ReferenceMazeRunner:
     """Returns a valid path through a maze."""
-
+    
+    def __init__(self):
+        self.name = name
+        
     def run(self, start, end):
-
-
-
-        #use the mazeloder to find the exit
-        #check in here to see if my run function is working
         # returns a valid path though maze
-        return ['West', 'North', 'East', 'East']
+        return ['West', 'North', 'East', 'East'] #hard coded solution, so this is where I need to write a functino that explores the maze, and returns whatever calues the path is. So, start is the dict value i begin with, then chain all the way, checking direction value to see if it matches the end. Once it matches the end, I return that array of saved steps in teh chain
 
 class MazeLoader:
     """Implements a maze and maze solver."""
@@ -32,19 +30,25 @@ class MazeLoader:
                         self.master_list[name] = MazeSquare(name)
                     square = self.master_list.get(name)
                     exits = parts[1].split(',')
-                    for ext in exits:
+                    for ext in exits: #is exit a reserved keyword?
                         direction, next_square = ext.split(':')
                         if next_square not in self.master_list:
                             self.master_list[next_square] = MazeSquare(next_square)
-                        next_square.add_exit(self.master_list.get(next_square), direction)
+                        square.add_exit(self.master_list.get(next_square), direction)
                 start, end = f.readline().split(' ')
+                #maybe a bug here with how it's saving start, end. End not getting a value? Debug.
+                
                 
                 current = self.master_list.get(start)
+                #Need to check to make sure the self.master.list[start] is a class object and not just the string "Entrance", same for "Kitchen" and end
                 runners = [ReferenceMazeRunner()]
+                #Figure out what the def init needs to have
                 for runner in runners:
                     result = runner.run(self.master_list.get(start), self.master_list.get(end))
+                    #check to see if end/start are class obejcts, not strings
                     for step in result:
                         current = current.get_square(step)
+                        #same check here for class instance
                         if current == None:
                             print('Invalid path returned')
                             break
@@ -54,15 +58,6 @@ class MazeLoader:
         except IOError:
             print('IO Exception reading from maze file')
                 
-
-
-# #
-# cell_nums = 6
-# name = Entrance
-# self.master_list = {
-# 	Entrance: {}
-# }
-
 
 class MazeSquare:
     """Implements a room in a maze."""
@@ -82,4 +77,4 @@ class MazeSquare:
     def get_square(self, direction):
         return self.exits.get(direction, None)                        
 
-MazeLoader()
+# MazeLoader()

@@ -7,24 +7,8 @@ Kitchen West:Hall,South:Dining
 Bedroom East:Hall,South:Sitting
 Entrance Kitchen
 
-self.master_list = {}
 
-cell_nums = 6
-parts = [Entrance, North:Hall,East:Dining,West:Sitting]
 
-name = Entrance
 
-self.master_list = {
-	Entrance: {name:Entrance, exits: {North: Hall,East:Dining, West:Sitting}, Hall: {name: Hall, exits: {South:Entrance,East:Kitchen,West:Bedroom}}
-}
-
-square = Entrance
-exit = [North:Hall, East:Dining, West:Sitting]
-
-direction = North
-next_square = Hall
-
-start = Entrance
-end = Kitchen
 
 
