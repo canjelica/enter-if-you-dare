@@ -32,11 +32,11 @@ class MazeLoader:
                         self.master_list[name] = MazeSquare(name)
                     square = self.master_list.get(name)
                     exits = parts[1].split(',')
-                    for exit in exits:
-                        direction, next_square = exit.split(':')
+                    for ext in exits:
+                        direction, next_square = ext.split(':')
                         if next_square not in self.master_list:
                             self.master_list[next_square] = MazeSquare(next_square)
-                        square.add_exit(self.master_list.get(next_square), direction)
+                        next_square.add_exit(self.master_list.get(next_square), direction)
                 start, end = f.readline().split(' ')
                 
                 current = self.master_list.get(start)
