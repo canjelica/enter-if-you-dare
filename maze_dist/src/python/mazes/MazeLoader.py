@@ -31,34 +31,25 @@ class ReferenceMazeRunner:
         return rooms
 
     def run(self, start, end):
-        """Returns a valid path through a maze."""
+        """Returns a valid path through a maze using breadth-first search."""
 
-        maze = self.maze 
-
-        maze_rooms = [("", start)] ##make into a deque after, Return index into with arr[i][0]
-        explored = set() #(start, Hall, Dining, Sitting)
-        maze_path = [North, East,West]
+        maze = self.maze #this is the self.master_list created in Mazeloader and passed in as parameter
+        maze_rooms = deque([("", start)]) 
+        explored = set() 
         
         while maze_rooms:
             path, current_room = maze_rooms.popleft()
-            # path = North South
-            #current_room = Entrance
-            maze_path.extend(path)
-
-            possible_exits = maze[current_room].get('exits')) #'North':'Bedroom','East':'Entrance'}
-
-            if current_room in explored:
-                continue
-            
-            for direction, next_room in possible_exits.items():
-                maze_rooms.extend(((path,direction), next_room))  #[ (North East Kitchen),(North West Bedroom), (East, North Kitchen), East, WEst Entrance), (West North Bedroom), (WEst East Entrance) ]
-                
-                # OPTIMIZE: if path if followed by opposite direction, remove path as one to explore, perhaps separate function
+       
+        
+            possible_exits = maze[current_room].get('exits'))
 
             if current_room = end:
-                maze_path = path
-                return maze_path
+                return path
 
+            for direction, next_room in possible_exits.items():
+                if not next_room in explored:
+                    maze_rooms.extend([path, direction], next_room)) 
+ 
             explored.add(current_room)
 
 
