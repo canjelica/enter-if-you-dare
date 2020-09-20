@@ -9,7 +9,11 @@ self.master_list = {
 
 	'Kitchen': {'name': 'Kitchen', 'exits': { 'West':'Hall', 'South':'Dining'}},
 
-	'Bedroom': {'name': 'Bedroom', 'exits': {'East':'Hall','South':'Sitting'}}, 'start': 'Entrance', 'end': 'Kitchen'}
+	'Bedroom': {'name': 'Bedroom', 'exits': {'East':'Hall','South':'Sitting'}}, 
+	
+	'start': 'Entrance', 
+	
+	'end': 'Kitchen'}
 
 current = 'Entrance'
 runners =  [['West', 'North', 'East', 'East']] object

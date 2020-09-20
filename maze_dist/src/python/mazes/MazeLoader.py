@@ -5,7 +5,7 @@ class ReferenceMazeRunner:
     """Returns a valid path through a maze."""
     
     def __init__(self, maze):
-        self.maze = maze
+        self.maze = maze  #This has the start end keys
     
     def get_directions():
         """Returns all possible maze directions."""
@@ -25,21 +25,51 @@ class ReferenceMazeRunner:
 
         rooms = list(self.maze.keys())
         rooms.remove('start')
-        rooms.remove('end')
+        rooms.remove('end') #Does not have the start end keys
 
         return rooms
 
     def run(self, start, end):
+        """Returns a valid path through a maze."""
+        
+        maze_solution = []
 
-        # maze_path = []
+        maze = self.maze 
+        rooms = get_rooms()
+        rooms = set(rooms)
+        directions = get_directions()
+        
+        possible_exits = Queue()
+        possible_exits.enqueue(start) # [+Entrance, +Hall]
+        explored_rooms = set()  
+        explored_rooms.add(start) #{Entrance,}
 
-        # rooms = get_rooms()
-        # directions = get_directions()
+        current_room = start #Entrance
 
-        # maze = self.maze
+        while current_room != end:
+            exits = maze[current_room].get('exits')) #{'North': 'Hall','East':'Dining','West':'Sitting'}
+            for direction in directions: #[North, south, east, west]
+                if maze[room][direction] == end:
+                    maze_solution.extend(direction)
+                else:
+                    maze.solution.extend(direction)  #[North,]
+                    possible_exits.enqueue(exits[direction]) #adds new room to Queue
+                    explored_rooms.add(current_room)
+                    possible_exits.dequeue()
+                
+            current_room = possible_exits.dequeue()
 
-        # if not start in maze:
-        #     return 
+
+        
+                
+                    
+
+
+
+
+
+
+
 
 
 
@@ -97,10 +127,11 @@ class MazeLoader:
             print('Location of maze file was not found')
         except IOError:
             print('IO Exception reading from maze file')
-                
+
 
 class MazeSquare:
     """Implements a room in a maze."""
+
     def __init__(self, name):
         self.name = name
         self.exits = {}
@@ -117,4 +148,4 @@ class MazeSquare:
     def get_square(self, direction):
         return self.exits.get(direction, None)                        
 
-MazeLoader()
+# MazeLoader()
