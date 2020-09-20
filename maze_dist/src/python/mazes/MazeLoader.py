@@ -36,26 +36,28 @@ class ReferenceMazeRunner:
         maze = self.maze 
 
         maze_rooms = [("", start)] ##make into a deque after, Return index into with arr[i][0]
-        explored = set() #(start, Hall)
-        maze_path = ["",North,east]
+        explored = set() #(start, Hall, Dining, Sitting)
+        maze_path = [North, East,West]
         
         while maze_rooms:
             path, current_room = maze_rooms.popleft()
-            # path = east
-            #current_room = dining
+            # path = North South
+            #current_room = Entrance
             maze_path.extend(path)
 
-            possible_exits = maze[current_room].get('exits')) #{'North':'Kitchen','West':'Entrance'}
-            
-            if current_room = end:
-                maze_path.extend(path)
-                return maze_path
+            possible_exits = maze[current_room].get('exits')) #'North':'Bedroom','East':'Entrance'}
 
             if current_room in explored:
                 continue
-           
+            
             for direction, next_room in possible_exits.items():
-                maze_rooms.extend(((path,direction), next_room)) #[(""West, Sitting),(North, South), Entrance), (North, East, Kitchen), (North, West, Bedroom),(east, north, Kitchen), (east, west, entrance)]
+                maze_rooms.extend(((path,direction), next_room))  #[ (North East Kitchen),(North West Bedroom), (East, North Kitchen), East, WEst Entrance), (West North Bedroom), (WEst East Entrance) ]
+                
+                # OPTIMIZE: if path if followed by opposite direction, remove path as one to explore, perhaps separate function
+
+            if current_room = end:
+                maze_path = path
+                return maze_path
 
             explored.add(current_room)
 
@@ -154,3 +156,12 @@ class MazeSquare:
 # Arrange
 # Act
 # Assert
+
+
+
+#1. Clean up Maze Loader
+#2. Look for Units to test
+#3. Clean up readability, put all comments and areas for improvement below in text#
+#4. Write test stubs
+#5. Put notes together
+#6. Work on webapp
