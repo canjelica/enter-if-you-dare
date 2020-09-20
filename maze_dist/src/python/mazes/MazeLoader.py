@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 
 # Mock submission that will return valid path
 class ReferenceMazeRunner:
@@ -31,56 +32,26 @@ class ReferenceMazeRunner:
 
     def run(self, start, end):
         """Returns a valid path through a maze."""
-        
-        maze_solution = []
 
         maze = self.maze 
-        rooms = get_rooms()
-        rooms = set(rooms)
-        directions = get_directions()
+
+        maze_rooms = deque([("", start)])
+        explored = set()
         
-        possible_exits = Queue()
-        possible_exits.enqueue(start) # [+Entrance, +Hall]
-        explored_rooms = set()  
-        explored_rooms.add(start) #{Entrance,}
+        while maze_rooms:
+            path, current_room = maze_rooms.popleft()
 
-        current_room = start #Entrance
+            possible_exits = maze[current_room].get('exits')) #{'North': 'Hall','East':'Dining','West':'Sitting'}
+            
+            if current_room = end:
+                return path
+            
+            if current_room in explored:
+                continue
+            explored.add(current_room)
 
-        while current_room != end:
-            exits = maze[current_room].get('exits')) #{'North': 'Hall','East':'Dining','West':'Sitting'}
-            for direction in directions: #[North, south, east, west]
-                if maze[room][direction] == end:
-                    maze_solution.extend(direction)
-                else:
-                    maze.solution.extend(direction)  #[North,]
-                    possible_exits.enqueue(exits[direction]) #adds new room to Queue
-                    explored_rooms.add(current_room)
-                    possible_exits.dequeue()
-                
-            current_room = possible_exits.dequeue()
-
-
-        
-                
-                    
-
-
-
-
-
-
-
-
-
-
-
-        return ['North', 'East'] 
-        # start is the dict value i begin with, then chain all the way, checking direction value to see if it matches the end. Once it matches the end, I return that array of saved steps in teh chain
-
-        #Make a list of all the possible directions
-        #make a list of all the rooms
-        # initialize an empty maze path
-        #iterate over list of rooms and list of directions. if maze[room][exits][direction] has a value, append it to list.
+            for direction, next_room in possible_exits:
+                maze_rooms.append((path + direction, next_room))
 
 
 class MazeLoader:
