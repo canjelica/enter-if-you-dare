@@ -3,7 +3,7 @@ from collections import deque
 
 
 # Mock submission that will return valid path
-class ReferenceMazeRunner:
+class MazeRunner:
     """Returns a valid path through a maze."""
     
     def __init__(self, maze):
@@ -38,24 +38,26 @@ class ReferenceMazeRunner:
         maze_rooms = deque([("", start)])
         explored = set() 
         
-        
-        while maze_rooms:
-            path, current_room = maze_rooms.popleft()
-            current_room = current_room.name
-            possible_exits = self.maze[current_room].exits
-            
+        path, current_room = maze_rooms.popleft()
+        current_room = current_room.name
+        possible_exits = self.maze[current_room].exits
+
+        while maze_rooms:    
             if current_room == end:
+                breakpoint()
                 return path
 
-            for direction, next_room in possible_exits.items():
-                breakpoint()
-                if not next_room in explored:
-                    maze_rooms.append(([path, direction], next_room))
             
-            explored.add(current_room)
-            
-        
+            # if current_room in explored:
+            #     continue
 
+            for direction, next_room in possible_exits.items():
+                if not next_room in explored:
+                    
+                    maze_rooms.append(([path, direction], next_room))
+                    explored.add(current_room)
+                    current_room = next_room    
+        
 
 class MazeLoader:
     """Implements a maze and maze solver."""
@@ -94,22 +96,27 @@ class MazeLoader:
 
                 #Adding start, end variables as strings
                 start, end = f.readline().split(' ')
-                breakpoint()
+
             current_room = self.master_list.get(start) # This is a MazeSquare object
-            runners = [ReferenceMazeRunner(self.master_list)] 
+            runners = [MazeRunner(self.master_list)] 
 
             for runner in runners:
                 # This returns an array with a valid maze path through given maze
                 result = runner.run(self.master_list.get(start), self.master_list.get(end))
+                breakpoint()
+  
 
                 for step in result:
-                    current_room = current_room.get_square(step) 
+                    current_room = current_room.get_square(step)
+                    current_room = self.master_list[current_room] 
 
                     if current_room == None:
                         print('Invalid path returned')
                         break
+                   
+              
+                if current_room.name == end: 
 
-                if current_room == end: 
                     print('Returned ' + ('valid' if self.master_list.get(end).get_name() == current_room.get_name() else 'invalid') + ' path')
 
         except FileNotFoundError:
@@ -145,18 +152,20 @@ MazeLoader()
 
 
 
-#class broken up into inidiidual units of work, unit tests are testing each of those units
-#break up def init in Maze Loader to separate it out
-#patter for unite test
-# Arrange
-# Act
-# Assert
+# Areas to optimize
+# break up def init in Maze Loader to separate it out
+# smaller functions (loops?) for unit testing stubs
+    # Arrange
+    # Act
+    # Assert
 
 
 
 #1. Clean up Maze Loader
-#2. Look for Units to test
+#2. Look for units to test
 #3. Clean up readability, put all comments and areas for improvement below in text#
 #4. Write test stubs
 #5. Put notes together
 #6. Work on webapp
+
+# discuss runtime?
