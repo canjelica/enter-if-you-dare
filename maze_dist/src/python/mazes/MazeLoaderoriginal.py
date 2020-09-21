@@ -1,35 +1,29 @@
 import sys
-from collections import deque
 
 # Mock submission that will return valid path
-class MazeRunner:
-
-    def __init__(self, maze):
-        self.maze = maze         
-
+class ReferenceMazeRunner:
     def run(self, start, end):
-    
         maze_rooms = deque([("", start)])
         explored = set() 
         
-        path, current_room = maze_rooms.popleft()
-        current_room = current_room.name
-        possible_exits = self.maze[current_room].exits
-        breakpoint() 
-        while maze_rooms:    
-            if current_room == end:  
-                return path
-                
-            for direction, next_room in possible_exits.items():
-                
-                if not next_room in explored:
-                    
-                    maze_rooms.append(([path, direction], next_room))
-                    explored.add(current_room)
-                    current_room = next_room 
         
+        # current_room = current_room.name
+        breakpoint()
+        while maze_rooms: 
+            path, current_room = maze_rooms.popleft()   
+            current_room = current_room.name
+            possible_exits = self.maze[current_room].exits
+            
+            if current_room == end:
+                return path
+
+            for direction, next_room in possible_exits.items():
+                breakpoint()
+
+                if not next_room in explored:
+                    maze_rooms.append(([path, direction], next_room))
                     
-    
+                explored.add(current_room) 
 
 class MazeLoader:
     def __init__(self):
@@ -46,26 +40,23 @@ class MazeLoader:
                         self.master_list[name] = MazeSquare(name)
                     square = self.master_list.get(name)
                     exits = parts[1].split(',')
+                    exits[-1] = exits[-1][:-1] 
                     for exit in exits:
                         direction, next_square = exit.split(':')
                         if next_square not in self.master_list:
                             self.master_list[next_square] = MazeSquare(next_square)
                         square.add_exit(self.master_list.get(next_square), direction)
                 start, end = f.readline().split(' ')
+                end = end[:-1]
+                breakpoint()
                 
                 current = self.master_list.get(start)
-                runners = [MazeRunner(self.master_list)] #added parameter
-                
+                runners = [ReferenceMazeRunner()]
                 for runner in runners:
                     result = runner.run(self.master_list.get(start), self.master_list.get(end))
-                    
+                    breakpoint()
                     for step in result:
                         current = current.get_square(step)
-                        
-
-                        current = self.master_list[current]
-                       
-                
                         if current == None:
                             print('Invalid path returned')
                             break

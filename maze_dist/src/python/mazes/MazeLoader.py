@@ -31,30 +31,32 @@ class MazeRunner:
 
         return rooms
 
-    def run(self, start, end):
+    def run(self, start, end, explored=None):
         """Returns a valid path through a maze using breadth-first search."""
-        
+
         maze_rooms = deque([("", start)])
         explored = set() 
-        
-        
-        # current_room = current_room.name
-        breakpoint()
+
         while maze_rooms: 
-            path, current_room = maze_rooms.popleft()   
+            path, current_room = maze_rooms.popleft()
             current_room = current_room.name
             possible_exits = self.maze[current_room].exits
             
             if current_room == end:
-                return path
+                return path[1:]
 
             for direction, next_room in possible_exits.items():
-                breakpoint()
 
                 if not next_room in explored:
                     maze_rooms.append(([path, direction], next_room))
+                    explored.add(current_room)
+                    current_room = next_room
                     
-                explored.add(current_room) ###DEBUG HERE, explored not adding current_room at end)
+             ###DEBUG HERE, 
+            #only interating through Entrance, not entering while to replace current_room
+            # breakpoint()
+
+
 
 class MazeLoader:
     """Implements a maze and maze solver."""
@@ -76,10 +78,10 @@ class MazeLoader:
                         self.master_list[name] = MazeSquare(name)
                     
                     square = self.master_list.get(name)
-                    doors = parts[1].split(',') 
-                    doors[-1] = doors[-1][:-1] 
+                    exits = parts[1].split(',') 
+                    exits[-1] = exits[-1][:-1] 
                     
-                    for door in doors: 
+                    for door in exits: 
                         direction, next_square = door.split(':')
 
                         if next_square not in self.master_list:
@@ -96,9 +98,9 @@ class MazeLoader:
             for runner in runners:
                 # This returns an array with a valid maze path through given maze
                 result = runner.run(self.master_list.get(start), self.master_list.get(end))
+                
                 ###DEBUG HERE###
-  
-
+                #run method not return an array with elements
                 for step in result:
                     current_room = current_room.get_square(step)
                     current_room = self.master_list[current_room] 
