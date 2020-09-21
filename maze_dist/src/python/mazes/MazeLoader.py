@@ -2,12 +2,12 @@ import sys
 from collections import deque
 
 
-# Mock submission that will return valid path
 class MazeRunner:
     """Returns a valid path through a maze."""
     
     def __init__(self, maze):
-        self.maze = maze         #this is the self.master_list created in Mazeloader and passed in as parameter
+        self.maze = maze         
+        #this is the self.master_list created in Mazeloader and passed in as parameter
 
     def get_directions():
         """Returns all possible maze directions."""
@@ -40,13 +40,14 @@ class MazeRunner:
         while maze_rooms: 
             path, current_room = maze_rooms.popleft()
             current_room = current_room.name
+            breakpoint()
             possible_exits = self.maze[current_room].exits
             
             if current_room == end:
                 return path[1:]
 
             for direction, next_room in possible_exits.items():
-
+                breakpoint()
                 if not next_room in explored:
                     maze_rooms.append(([path, direction], next_room))
                     explored.add(current_room)
