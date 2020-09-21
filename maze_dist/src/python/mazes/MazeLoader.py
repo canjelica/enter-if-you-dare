@@ -9,7 +9,6 @@ class MazeRunner:
     def __init__(self, maze):
         self.maze = maze         #this is the self.master_list created in Mazeloader and passed in as parameter
 
-    
     def get_directions():
         """Returns all possible maze directions."""
 
@@ -38,26 +37,24 @@ class MazeRunner:
         maze_rooms = deque([("", start)])
         explored = set() 
         
-        path, current_room = maze_rooms.popleft()
-        current_room = current_room.name
-        possible_exits = self.maze[current_room].exits
-
-        while maze_rooms:    
+        
+        # current_room = current_room.name
+        breakpoint()
+        while maze_rooms: 
+            path, current_room = maze_rooms.popleft()   
+            current_room = current_room.name
+            possible_exits = self.maze[current_room].exits
+            
             if current_room == end:
-                breakpoint()
                 return path
 
-            
-            # if current_room in explored:
-            #     continue
-
             for direction, next_room in possible_exits.items():
+                breakpoint()
+
                 if not next_room in explored:
-                    
                     maze_rooms.append(([path, direction], next_room))
-                    explored.add(current_room)
-                    current_room = next_room    
-        
+                    
+                explored.add(current_room) ###DEBUG HERE, explored not adding current_room at end)
 
 class MazeLoader:
     """Implements a maze and maze solver."""
@@ -68,34 +65,30 @@ class MazeLoader:
         try:
             with open(sys.argv[1], 'r') as f:
 
-                # Begin reading file line-by-line
                 cell_nums = int(f.readline())
 
-                # Variableizes elements of each line
                 for _ in range(cell_nums):
                     curr_line = f.readline()
                     parts = curr_line.split(' ', 2)
                     name = parts[0]
-                    # Adding MazeSquare object to dictionary by maze room name
+
                     if name not in self.master_list:
                         self.master_list[name] = MazeSquare(name)
                     
-                    # Create variables for 
                     square = self.master_list.get(name)
-                    doors = parts[1].split(',') #list of direction:room elements
-                    doors[-1] = doors[-1][:-1]
+                    doors = parts[1].split(',') 
+                    doors[-1] = doors[-1][:-1] 
                     
                     for door in doors: 
                         direction, next_square = door.split(':')
 
                         if next_square not in self.master_list:
-                            self.master_list[next_square] = MazeSquare(next_square) #change to str not object
+                            self.master_list[next_square] = MazeSquare(next_square) 
 
                         square.add_exit(next_square, direction)
                 
-
-                #Adding start, end variables as strings
                 start, end = f.readline().split(' ')
+                end = end[:-1]
 
             current_room = self.master_list.get(start) # This is a MazeSquare object
             runners = [MazeRunner(self.master_list)] 
@@ -103,7 +96,7 @@ class MazeLoader:
             for runner in runners:
                 # This returns an array with a valid maze path through given maze
                 result = runner.run(self.master_list.get(start), self.master_list.get(end))
-                breakpoint()
+                ###DEBUG HERE###
   
 
                 for step in result:
