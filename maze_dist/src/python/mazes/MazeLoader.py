@@ -42,6 +42,8 @@ class MazeRunner:
             current_room = current_room.name
             breakpoint()
             possible_exits = self.maze[current_room].exits
+            ##this is not reading at current room 'Hall'
+            ##Still returning the current
             
             if current_room == end:
                 return path[1:]
@@ -55,7 +57,6 @@ class MazeRunner:
                     
              ###DEBUG HERE, 
             #only interating through Entrance, not entering while to replace current_room
-            # breakpoint()
 
 
 
