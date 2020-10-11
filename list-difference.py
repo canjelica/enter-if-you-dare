@@ -28,4 +28,20 @@ def array_diff(a, b):
                 if num != item:
                     difference.append(item)
         return difference
+
+
+class Solution:
+    def defangIPaddr(self, address: str) -> str:
+        
+        defanged = []
+        
+        for char in address:
+            
+            if char != ".":
+                defanged.append(char)
+                
+            else:                
+                defanged.append("[.]")
+        
+        return ''.join(defanged)
         
