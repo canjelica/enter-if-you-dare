@@ -44,4 +44,21 @@ class Solution:
                 defanged.append("[.]")
         
         return ''.join(defanged)
-        
+
+
+
+
+class Solution:
+	def removeVowels(self, S: str) -> str:
+			
+			vowels = ['a','e','i','u','o']
+			string = []
+			
+			for char in S:
+					if char not in vowels:
+							string.append(char)    
+			
+			string = "".join(string)
+	
+			return string
+			
