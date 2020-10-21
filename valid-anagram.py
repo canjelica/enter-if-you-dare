@@ -26,3 +26,26 @@ class Solution:
             return True
         else:
             return False
+
+
+
+class Solution:
+    def restoreString(self, s: str, indices: List[int]) -> str:
+        
+        shuffled = ""
+        
+        i=0
+        while i < len(s):
+            shuffled = shuffled + s[indices.index(i)]
+            i+=1
+
+        return shuffled
+        
+        
+        
+            
+    
+    
+            
+        
+        
